@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Orçamento</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      padding: 2rem;
+      color: #000000;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #0c0c0c;
+      font-size: 1.8rem;
+      margin-bottom: 0;
+    }
+
+    .info, .cliente, .total-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      background-color: #f1f1f1;
+      color: #000;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background-color: #e4e4e4;
+      color: #333;
+    }
+
+    td {
+      background-color: #fdfdfd;
+      color: #333;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #28a745;
+      padding-top: 1rem;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="../utils/image.png" alt="Logo" class="logo" />
+    <h2>Orçamento Nº <%= orcamento.id %></h2>
+  </div>
+
+  <div class="info">
+    <p><strong>Data de Emissão:</strong> <%= data_emissao %></p>
+    <p><strong>Validade:</strong> <%= validade %></p>
+    <p><strong>Técnico:</strong> <%= orcamento.tecnico %></p>
+  </div>
+
+  <div class="section-title">Dados do Cliente</div>
+  <div class="cliente">
+    <p><strong>Nome:</strong> <%= orcamento.cliente_nome %></p>
+    <p><strong>Endereço:</strong> <%= orcamento.cliente_endereco %></p>
+    <p><strong>CPF/CNPJ:</strong> <%= orcamento.cliente_documento %></p>
+    <p><strong>Email:</strong> <%= orcamento.cliente_email %></p>
+  </div>
+
+  <div class="section-title">Produtos</div>
+  <table>
+    <thead>
+      <tr><th>Qtde</th><th>Descrição</th><th>Valor (R$)</th></tr>
+    </thead>
+    <tbody>
+      <% orcamento.produtos.forEach(p => { %>
+        <tr>
+          <td><%= p.qtde %></td>
+          <td><%= p.descricao %></td>
+          <td><%= parseFloat(p.valor).toFixed(2).replace('.', ',') %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <div class="section-title">Serviços</div>
+  <table>
+    <thead>
+      <tr><th>Qtde</th><th>Descrição</th><th>Valor (R$)</th></tr>
+    </thead>
+    <tbody>
+      <% orcamento.servicos.forEach(s => { %>
+        <tr>
+          <td><%= s.qtde %></td>
+          <td><%= s.descricao %></td>
+          <td><%= parseFloat(s.valor).toFixed(2).replace('.', ',') %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <div class="total-section">
+    <p class="total">Total: R$ <%= parseFloat(orcamento.total).toFixed(2).replace('.', ',') %></p>
+  </div>
+
+  <div class="footer">
+    <p>SPEED+ INFORMÁTICA — A opção de quem escolhe com confiança!</p>
+  </div>
+
+</body>
+</html>
